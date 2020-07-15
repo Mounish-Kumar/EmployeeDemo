@@ -22,17 +22,23 @@ public class Employee {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 	
-	@Column(name = "AGE")
-	private Long age;
-	
+	@Column(name = "EMAIL")
+	private String email;
+
 	@Column(name = "PHONE")
 	private String phone;
 	
-	@Column(name = "EMAIL")
-	private String email;
+	@Column(name = "ADDRESS")
+	private String address;
 	
-	@Column(name = "CITY")
-	private String city;
+	@Column(name = "DOB")
+	private String dob;
+	
+	@Column(name = "DESIGNATION")
+	private String designation;
+	
+	@Column(name = "LEVEL")
+	private String level;
 
 	public Long getId() {
 		return id;
@@ -58,12 +64,12 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public Long getAge() {
-		return age;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAge(Long age) {
-		this.age = age;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPhone() {
@@ -74,26 +80,44 @@ public class Employee {
 		this.phone = phone;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getCity() {
-		return city;
+	public String getDob() {
+		return dob;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age
-				+ ", phone=" + phone + ", email=" + email + ", city=" + city + "]";
+		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phone=" + phone + ", address=" + address + ", dob=" + dob + ", designation=" + designation
+				+ ", level=" + level + "]";
 	}
 
+	
 }

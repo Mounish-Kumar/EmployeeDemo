@@ -1,0 +1,83 @@
+<!-- The Modal -->
+<div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">
+            {{ (action==="VIEW" && "Employee Details") || (action==="EDIT" && "Edit Employee") || (action==="CREATE" && "Create Employee") }}
+          </h4>
+          <button type="button" class="close" (click)="closePopup()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form #myForm="ngForm">
+            <div class="row p-2" *ngIf="action!=='CREATE'">
+              <div class="col-6">Employee ID</div>
+              <div class="col-6">
+                <input type="text" name="id" [(ngModel)]="employee.id" disabled>
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Firstname</div>
+              <div class="col-6">
+                <input type="text" name="firstName" [(ngModel)]="employee.firstName" [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Lastname</div>
+              <div class="col-6">
+                <input type="text" name="lastName" [(ngModel)]="employee.lastName"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Email</div>
+              <div class="col-6">
+                <input type="text" name="email" [(ngModel)]="employee.email"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Phone</div>
+              <div class="col-6">
+                <input type="text" name="phone" [(ngModel)]="employee.phone"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Address</div>
+              <div class="col-6">
+                <input type="text" name="address" [(ngModel)]="employee.address"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Date of Birth</div>
+              <div class="col-6">
+                <input type="text" name="dob" [(ngModel)]="employee.dob"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Designation</div>
+              <div class="col-6">
+                <input type="text" name="designation" [(ngModel)]="employee.designation"  [disabled]="action==='VIEW'">
+              </div>
+            </div>
+            <div class="row p-2">
+              <div class="col-6">Level</div>
+              <div class="col-6">
+                <input type="text" name="level" [(ngModel)]="employee.level" [disabled]="action==='VIEW'">
+              </div>
+            </div>
+          </form>
+        </div>
+          
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" (click)="closePopup()">Close</button>
+          <button type="button" class="btn btn-success" (click)="save()" *ngIf="action!=='VIEW'">Save</button>
+        </div>
+        
+      </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="pt-2">
+    <h2 class="float-left">Employee</h2>
+    <button type="button" class="btn btn-dark float-right" (click)="createEmployee()">Create Employee</button>
+</div>
+
+<table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{emp.firstName}}</td>
+        <td>{{emp.lastName}}</td>
+        <td>{{emp.email}}</td>
+        <td>
+            <i class="fa fa-eye" (click)="viewEmployee(emp)"></i>
+        </td>
+        <td>
+            <i class="fa fa-pencil" (click)="editEmployee(emp)"></i>
+        </td>
+        <td>
+            <i class="fa fa-trash" (click)="deleteEmployee(emp)"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <app-employee-detail [employee]="selectedEmployee" [action]="popupAction" (closeEmitter)="closeEmployeeDetailPopup($event)" *ngIf="showPopup"></app-employee-detail>
