@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from './../core/http.service';
+import HttpRequest from './../core/http-request';
+import HttpMethod from './../core/http-method.enum';
 
 @Component({
   selector: 'app-employees',
@@ -22,14 +24,15 @@ export class EmployeesComponent implements OnInit {
   //   { id: 3, firstName: "Shan", lastName: "V", email: "shan@example.com", phone: "99999 99999", address: "Velacherry", designation: "Lead", level: "L3" }
   // ];
 
-  constructor(private http:HttpClient) { }
+  constructor(private httpService:HttpService) { }
 
   ngOnInit(): void {
     this.searchEmployees();
   }
 
   searchEmployees() {
-    this.http.get<any>("/api/v1/employee")
+    const request = new HttpRequest("/api/v1/employee", HttpMethod.GET);
+    this.httpService.callService(request)
     .subscribe(
       response => {
         this.employees = response && response.employeeList
@@ -59,7 +62,8 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(emp) {
-    this.http.delete<any>("/api/v1/employee/" + emp.id)
+    const request = new HttpRequest(`/api/v1/employee/${emp.id}`, HttpMethod.DELETE);
+    this.httpService.callService(request)
     .subscribe(
       response => {
         alert(response && response.message);

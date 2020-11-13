@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
+import HttpRequest from 'src/app/core/http-request';
+import { HttpService } from 'src/app/core/http.service';
+import HttpMethod from './../../core/http-method.enum';
 
 @Component({
   selector: 'app-employee-detail',
@@ -15,7 +16,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   @Output() closeEmitter = new EventEmitter();
 
-  constructor(private http:HttpClient) { }
+  constructor(private httpService:HttpService) { }
 
   ngOnInit(): void {
   }
@@ -25,18 +26,19 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   save() {
-    let observable:Observable<any> = null;
-
+    let httpMethod:HttpMethod = null;
     switch(this.action) {
       case "CREATE":
-        observable = this.http.post<any>("/api/v1/employee", this.employee);
+        httpMethod = HttpMethod.POST;
         break;
       case "EDIT":
-        observable = this.http.put<any>("/api/v1/employee", this.employee);
+        httpMethod = HttpMethod.PUT;
         break;
     }
 
-    observable.subscribe(
+    const request = new HttpRequest("/api/v1/employee", httpMethod);
+    this.httpService.callService(request)
+    .subscribe(
       response => {
         alert(response && response.message);
         this.closeEmitter.emit(true);
