@@ -46,4 +46,5 @@ testem.log
 Thumbs.db
 
 # UI
-/my-app/node_modules
+/node_modules
+debug.log

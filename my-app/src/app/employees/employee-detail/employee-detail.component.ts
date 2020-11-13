@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class EmployeeDetailComponent implements OnInit {
 
-  @Input() employee;
+  @Input() employee = {};
 
   @Input() action;
 
