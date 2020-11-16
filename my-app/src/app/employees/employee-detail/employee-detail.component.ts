@@ -10,13 +10,15 @@ import HttpMethod from './../../core/http-method.enum';
 })
 export class EmployeeDetailComponent implements OnInit {
 
-  @Input() employee = {};
+  @Input() employee;
 
   @Input() action;
 
   @Output() closeEmitter = new EventEmitter();
 
-  constructor(private httpService:HttpService) { }
+  constructor(private httpService:HttpService) {
+    this.employee = {};
+  }
 
   ngOnInit(): void {
   }
@@ -36,7 +38,7 @@ export class EmployeeDetailComponent implements OnInit {
         break;
     }
 
-    const request = new HttpRequest("/api/v1/employee", httpMethod);
+    const request = new HttpRequest("/api/v1/employee", httpMethod, this.employee);
     this.httpService.callService(request)
     .subscribe(
       response => {
