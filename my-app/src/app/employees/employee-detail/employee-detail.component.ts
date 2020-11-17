@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { AppService } from 'src/app/core/app.service';
 import HttpRequest from 'src/app/core/http-request';
 import { HttpService } from 'src/app/core/http.service';
 import HttpMethod from './../../core/http-method.enum';
+import { finalize } from 'rxjs/operators';
+import MessageType from 'src/app/core/message-type.enum';
 
 @Component({
   selector: 'app-employee-detail',
@@ -16,7 +19,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   @Output() closeEmitter = new EventEmitter();
 
-  constructor(private httpService:HttpService) {
+  constructor(private httpService:HttpService, private app:AppService) {
     this.employee = {};
   }
 
@@ -28,6 +31,8 @@ export class EmployeeDetailComponent implements OnInit {
   }
 
   save() {
+    this.app.showLoader = true;
+
     let httpMethod:HttpMethod = null;
     switch(this.action) {
       case "CREATE":
@@ -37,16 +42,17 @@ export class EmployeeDetailComponent implements OnInit {
         httpMethod = HttpMethod.PUT;
         break;
     }
-
     const request = new HttpRequest("/api/v1/employee", httpMethod, this.employee);
+
     this.httpService.callService(request)
+    .pipe(finalize(() => this.app.showLoader = false))
     .subscribe(
       response => {
-        alert(response && response.message);
+        this.app.addMessage(response && response.message, MessageType.SUCCESS);
         this.closeEmitter.emit(true);
       },
       error => {
-        alert(error && error.message);
+        this.app.addMessage(error && error.message, MessageType.ERROR);
       }
     );
   }
