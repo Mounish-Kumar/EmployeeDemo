@@ -1,0 +1,15 @@
+<div class="messages">
+    <div *ngFor="let item of app.messages; let i=index;"
+        [ngClass]="{ 'success': item.type==='SUCCESS',
+        'error': item.type==='ERROR',
+        'warning': item.type==='WARNING',
+        'info': item.type==='INFO' }">
+        <i [ngClass]="{ 'fa': true,
+            'fa-check-circle': item.type==='SUCCESS',
+            'fa-times-circle': item.type==='ERROR',
+            'fa-info-circle': item.type==='WARNING',
+            'fa-info-circle': item.type==='INFO' }"></i>
+        <span>{{item.message}}</span>
+        <i class="fa fa-times close" (click)="app.deleteMessage(i)"></i>
+    </div>
+</div>

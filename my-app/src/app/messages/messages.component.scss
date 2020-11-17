@@ -1,0 +1,52 @@
+.messages {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  min-width: 20%;
+  max-width: 40%;
+  z-index: 1;
+
+  div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.4rem 0.8rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    color: #fff;
+
+    &.success {
+      background-color: rgba(#00c851, 0.9);
+    }
+
+    &.error {
+      background-color: rgba(#ff4444, 0.9);
+    }
+
+    &.warning {
+      background-color: rgba(#ffbb33, 0.9);
+    }
+
+    &.info {
+      background-color: rgba(#33b5e5, 0.9);
+    }
+
+    i.fa:not(.close) {
+      font-size: 2rem;
+      margin-right: 0.8rem;
+    }
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .close {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 4px 6px;
+    }
+  }
+}

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from './../core/http.service';
 import HttpRequest from './../core/http-request';
 import HttpMethod from './../core/http-method.enum';
+import { finalize } from 'rxjs/operators';
+import MessageType from 'src/app/core/message-type.enum';
+import { AppService } from '../core/app.service';
 
 @Component({
   selector: 'app-employees',
@@ -24,21 +27,23 @@ export class EmployeesComponent implements OnInit {
   //   { id: 3, firstName: "Shan", lastName: "V", email: "shan@example.com", phone: "99999 99999", address: "Velacherry", designation: "Lead", level: "L3" }
   // ];
 
-  constructor(private httpService:HttpService) { }
+  constructor(private httpService:HttpService, private app:AppService) { }
 
   ngOnInit(): void {
     this.searchEmployees();
   }
 
   searchEmployees() {
+    this.app.showLoader = true;
     const request = new HttpRequest("/api/v1/employee", HttpMethod.GET);
     this.httpService.callService(request)
+    .pipe(finalize(() => this.app.showLoader = false))
     .subscribe(
       response => {
         this.employees = response && response.employeeList
       },
       error => {
-        alert(error && error.message);
+        this.app.addMessage(error && error.message, MessageType.ERROR);
       }
     );
   }
@@ -62,15 +67,17 @@ export class EmployeesComponent implements OnInit {
   }
 
   deleteEmployee(emp) {
+    this.app.showLoader = true;
     const request = new HttpRequest(`/api/v1/employee/${emp.id}`, HttpMethod.DELETE);
     this.httpService.callService(request)
+    .pipe(finalize(() => this.app.showLoader = false))
     .subscribe(
       response => {
-        alert(response && response.message);
+        this.app.addMessage(response && response.message, MessageType.SUCCESS);
         this.searchEmployees();
       },
       error => {
-        alert(error && error.message);
+        this.app.addMessage(error && error.message, MessageType.ERROR);
       }
     );
   }

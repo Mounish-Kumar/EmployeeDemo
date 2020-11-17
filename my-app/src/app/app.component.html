@@ -1,4 +1,6 @@
 <app-header></app-header>
+<app-loader *ngIf="app.showLoader"></app-loader>
+<app-messages *ngIf="app.messages && app.messages.length > 0"></app-messages>
 
 <div class="fluid-container pl-4 pr-4">
   <router-outlet></router-outlet>

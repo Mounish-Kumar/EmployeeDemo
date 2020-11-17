@@ -12,6 +12,8 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { LeaveTrackerComponent } from './leave-tracker/leave-tracker.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
 import { EmployeeComponent } from './employees/employee/employee.component';
+import { MessagesComponent } from './messages/messages.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { EmployeeComponent } from './employees/employee/employee.component';
     AttendanceComponent,
     LeaveTrackerComponent,
     EmployeeDetailComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    MessagesComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
