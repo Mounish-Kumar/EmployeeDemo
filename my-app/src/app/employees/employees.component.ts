@@ -27,7 +27,7 @@ export class EmployeesComponent implements OnInit {
   //   { id: 3, firstName: "Shan", lastName: "V", email: "shan@example.com", phone: "99999 99999", address: "Velacherry", designation: "Lead", level: "L3" }
   // ];
 
-  constructor(private httpService:HttpService, private app:AppService) { }
+  constructor(private app:AppService, private httpService:HttpService) { }
 
   ngOnInit(): void {
     this.searchEmployees();

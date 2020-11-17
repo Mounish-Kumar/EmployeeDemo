@@ -19,7 +19,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   @Output() closeEmitter = new EventEmitter();
 
-  constructor(private httpService:HttpService, private app:AppService) {
+  constructor(private app:AppService, private httpService:HttpService) {
     this.employee = {};
   }
 

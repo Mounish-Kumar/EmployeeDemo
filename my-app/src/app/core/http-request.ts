@@ -6,7 +6,7 @@ class HttpRequest {
     body;
     headers;
 
-    constructor(url:string, method:HttpMethod, body?, headers?) {
+    constructor(url:string, method?:HttpMethod, body?, headers?) {
         this.url = url;
         this.method = method;
         this.body = body;

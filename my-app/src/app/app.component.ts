@@ -9,6 +9,5 @@ import { AppService } from './core/app.service';
 export class AppComponent {
 
   constructor(public app:AppService) {
-    
   }
 }

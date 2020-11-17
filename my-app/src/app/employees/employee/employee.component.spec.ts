@@ -5,6 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from 'src/app/core/http.service';
 import { from, throwError } from 'rxjs';
 import MessageType from 'src/app/core/message-type.enum';
+import { AppService } from 'src/app/core/app.service';
 
 describe('EmployeeComponent', () => {
   let component: EmployeeComponent;
@@ -14,7 +15,7 @@ describe('EmployeeComponent', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule, FormsModule, ReactiveFormsModule ],
       declarations: [ EmployeeComponent ],
-      providers: [ HttpService, FormBuilder ]
+      providers: [ AppService, HttpService, FormBuilder ]
     })
     .compileComponents();
   }));
@@ -55,7 +56,7 @@ describe('EmployeeComponent', () => {
       });
     });
 
-    it('lastName have only alphabets', () => {
+    it('lastName: should have only alphabets', () => {
       const control = component.form.get('lastName');
       control.setValue('123');
       expect(control.errors.pattern).toBeTruthy();
@@ -99,7 +100,7 @@ describe('EmployeeComponent', () => {
   });
 
 
-  it('closePopup raises closeEmitter event', () => {
+  it('closePopup: should raise closeEmitter event', () => {
     let raiseEvent = false;
     component.closeEmitter.subscribe(e => raiseEvent = true);
     component.closePopup();
@@ -108,48 +109,51 @@ describe('EmployeeComponent', () => {
 
 
   describe('save', () => {
+    let appService:AppService = null;
+    let httpService:HttpService = null;
     let callServiceSpy = null;
     let response = null;
+
+    beforeEach(() => {
+      appService = TestBed.inject(AppService);
+      httpService = TestBed.inject(HttpService);
+    });
 
     describe('success response', () => {
 
       beforeEach(() => {
         component.action = 'CREATE';
         response = { message: "Success!" };
-        callServiceSpy = spyOn(component.httpService, 'callService').and.callFake(() => {
+        callServiceSpy = spyOn(httpService, 'callService').and.callFake(() => {
           return from([response]);
         });
       });
 
-      it('httpService is called', () => {
+      it('should call httpService', () => {
         component.save();
         expect(callServiceSpy).toHaveBeenCalled();
       });
 
-      it('addMessage is called', () => {
-        const addMessageSpy = spyOn(component.app, 'addMessage').and.callFake(() => {
-          return from([]);
-        });
+      it('should call addMessage', () => {
+        const addMessageSpy = spyOn(appService, 'addMessage');
         component.save();
         expect(addMessageSpy).toHaveBeenCalledWith(response.message, MessageType.SUCCESS);
       });
 
-      it('raises closeEmitter event', () => {
+      it('should raise closeEmitter event', () => {
         let raiseEvent = null;
         component.closeEmitter.subscribe(e => raiseEvent = e);
         component.save();
-        expect(raiseEvent).toBe(raiseEvent);
+        expect(raiseEvent).toBeTrue();
       });
 
     });
 
-    it('error response: addMessage is called', () => {
+    it('error response: should call addMessage', () => {
       component.action = 'EDIT';
       response = { message: "Failed!" };
-      callServiceSpy = spyOn(component.httpService, 'callService').and.returnValue(throwError(response));
-      const addMessageSpy = spyOn(component.app, 'addMessage').and.callFake(() => {
-        return from([]);
-      });
+      callServiceSpy = spyOn(httpService, 'callService').and.returnValue(throwError(response));
+      const addMessageSpy = spyOn(appService, 'addMessage');
       component.save();
       expect(addMessageSpy).toHaveBeenCalledWith(response.message, MessageType.ERROR);
     });

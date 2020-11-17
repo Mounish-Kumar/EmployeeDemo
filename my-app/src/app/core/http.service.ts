@@ -26,16 +26,12 @@ export class HttpService {
     switch(method) {
       case HttpMethod.GET:
         return this.http.get(url, { headers: httpHeaders });
-        break;
       case HttpMethod.POST:
         return this.http.post(url, body, { headers: httpHeaders });
-        break;
       case HttpMethod.PUT:
         return this.http.put(url, body, { headers: httpHeaders });
-        break;
       case HttpMethod.DELETE:
         return this.http.delete(url, { headers: httpHeaders });
-        break;
     }
   }
 }
