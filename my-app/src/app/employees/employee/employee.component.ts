@@ -22,7 +22,7 @@ export class EmployeeComponent implements OnInit {
 
   @Output() closeEmitter = new EventEmitter();
 
-  constructor(private httpService:HttpService, private formBuilder:FormBuilder, private app:AppService) {
+  constructor(public httpService:HttpService, private formBuilder:FormBuilder, public app:AppService) {
     this.employee = {};
   }
 

@@ -16,7 +16,11 @@ describe('UtilitiesService', () => {
   });
 
   describe('dateToString', () => {
-    const date = new Date(2020, 11, 26, 10, 20, 30);
+    let date = null;
+    
+    beforeAll(() => {
+      date = new Date(2020, 11, 26, 10, 20, 30);
+    });
 
     it('date to dd/mm/yyyy format', () => {
       const result = service.dateToString(date);
@@ -35,7 +39,11 @@ describe('UtilitiesService', () => {
   });
 
   describe('stringToDate', () => {
-    const date = new Date(2020, 11, 26, 10, 20, 30);
+    let date = null;
+    
+    beforeAll(() => {
+      date = new Date(2020, 11, 26, 10, 20, 30);
+    });
 
     it('dd/mm/yyyy format to date', () => {
       const result = service.stringToDate('26/12/2020');
