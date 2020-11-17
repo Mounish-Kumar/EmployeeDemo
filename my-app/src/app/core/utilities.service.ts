@@ -34,14 +34,6 @@ export class UtilitiesService {
     return dateString;
   }
 
-  prependZeros(value, length = 2):string {
-    let prefix = "";
-    for(let i=0; i < length; i++) {
-      prefix = prefix + "0";
-    }
-    return (prefix + value).slice(0 - length);
-  }
-
   stringToDate(dateString:string, format = "dd/mm/yyyy"):Date {
     let date = null, dateArr = null, timeArr = null;
     let day = null, month = null, year = null, hours = null, minutes = null, seconds = null;
@@ -77,7 +69,7 @@ export class UtilitiesService {
         seconds = Number(timeArr[2]);
       }
 
-      if(dateArr && timeArr) {
+      if(timeArr) {
         date = new Date(year, month, day, hours, minutes, seconds);
       } else {
         date = new Date(year, month, day);
@@ -86,16 +78,24 @@ export class UtilitiesService {
     return date;
   }
 
+  prependZeros(value, length = 2):string {
+    let prefix = "";
+    for(let i=0; i < length; i++) {
+      prefix = prefix + "0";
+    }
+    return (prefix + value).slice(0 - length);
+  }
+
+  isNumeric(value):boolean {
+    return !isNaN(value);
+  }
+
   stringToNumber(str):number {
     let num = 0;
     if(str && this.isNumeric(str)) {
       num = Number(str);
     }
     return num;
-  }
-
-  isNumeric(value):boolean {
-    return !isNaN(value);
   }
 
   isPositiveNumber(value):boolean {

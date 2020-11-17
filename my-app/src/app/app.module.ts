@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule }   from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +11,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { LeaveTrackerComponent } from './leave-tracker/leave-tracker.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
+import { EmployeeComponent } from './employees/employee/employee.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
     EmployeesComponent,
     AttendanceComponent,
     LeaveTrackerComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

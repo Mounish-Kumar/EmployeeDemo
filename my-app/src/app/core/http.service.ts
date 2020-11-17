@@ -14,9 +14,10 @@ export class HttpService {
   callService({url, method, body, headers}:HttpRequest):Observable<any> {
     if(!url || !url.trim()) throw new Error("You need to pass URL");
     if(!method) method = HttpMethod.GET;
-    const httpHeaders = new HttpHeaders();
+
+    const httpHeaders = new HttpHeaders();    
+    if(!headers || !("Content-Type" in headers)) httpHeaders.set("Content-Type", "application/json");
     if(headers) {
-      if(!("Content-Type" in headers)) httpHeaders.set("Content-Type", "application/json");
       for(let key in headers) {
         httpHeaders.set(key, headers[key]);
       }

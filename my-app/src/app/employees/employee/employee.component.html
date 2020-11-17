@@ -1,0 +1,99 @@
+<!-- The Modal -->
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">
+          {{ (action==="VIEW" && "Employee Details") || (action==="EDIT" && "Edit Employee") || (action==="CREATE" && "Create Employee") }}
+        </h4>
+        <button type="button" class="close" (click)="closePopup()">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="row p-2" *ngIf="action!=='CREATE'">
+            <div class="col-4">Employee ID</div>
+            <div class="col-8">
+              <input type="text" name="id" formControlName="id" disabled>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Firstname</div>
+            <div class="col-8">
+              <input type="text" formControlName="firstName" [disabled]="action==='VIEW'">
+              <div class="error" *ngIf="form.get('firstName').invalid && form.get('firstName').touched">
+                <div *ngIf="form.get('firstName').errors.required">Enter this field</div>
+                <div *ngIf="form.get('firstName').errors.minlength">Should have atlest {{form.get('firstName').errors.minlength.requiredLength}} characters</div>
+                <div *ngIf="form.get('firstName').errors.pattern">Invalid</div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Lastname</div>
+            <div class="col-8">
+              <input type="text" formControlName="lastName" [disabled]="action==='VIEW'">
+              <div class="error" *ngIf="form.get('lastName').invalid && form.get('lastName').touched">
+                <div *ngIf="form.get('lastName').errors.pattern">Invalid</div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Email</div>
+            <div class="col-8">
+              <input type="text" formControlName="email" [disabled]="action==='VIEW'">
+              <div class="error" *ngIf="form.get('email').invalid && form.get('email').touched">
+                <div *ngIf="form.get('email').errors.required">Enter this field</div>
+                <div *ngIf="form.get('email').errors.pattern">Invalid</div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Phone</div>
+            <div class="col-8">
+              <input type="text" formControlName="phone" [disabled]="action==='VIEW'">
+              <div class="error" *ngIf="form.get('phone').errors && form.get('phone').touched">
+                <div *ngIf="form.get('phone').errors.required">Enter this field</div>
+                <div *ngIf="form.get('phone').errors.pattern">Invalid</div>
+              </div>
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Address</div>
+            <div class="col-8">
+              <input type="text" formControlName="address" [disabled]="action==='VIEW'">
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Date of Birth</div>
+            <div class="col-8">
+              <input type="text" formControlName="dob" [disabled]="action==='VIEW'">
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Designation</div>
+            <div class="col-8">
+              <input type="text" formControlName="designation" [disabled]="action==='VIEW'">
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Level</div>
+            <div class="col-8">
+              <input type="text" formControlName="level" [disabled]="action==='VIEW'">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="closePopup()">Close</button>
+        <button type="button" class="btn btn-success" (click)="save()" *ngIf="action!=='VIEW'"
+          [disabled]="form.invalid">Save</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

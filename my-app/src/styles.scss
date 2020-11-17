@@ -3,10 +3,15 @@
 @import "~font-awesome/css/font-awesome.css";
 
 .error {
-    color: red;
+  color: red;
 }
 
 input.ng-touched.ng-invalid {
-    border: 1px solid red;
-    border-radius: 2px;
+  border: 1px solid red;
+  border-radius: 2px;
+}
+
+.modal {
+  display: block !important;
+  background-color: rgba(#000, 0.5);
 }

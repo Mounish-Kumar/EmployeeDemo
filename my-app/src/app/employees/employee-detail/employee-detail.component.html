@@ -24,61 +24,62 @@
               <div class="col-4">Firstname</div>
               <div class="col-8">
                 <input type="text" name="firstName" [(ngModel)]="employee.firstName" [disabled]="action==='VIEW'" #firstName="ngModel"
-                  required [pattern]="'^[a-zA-Z ]*$'">
+                  required minlength="3" [pattern]="'^[a-zA-Z ]*$'">
                 <div class="error" *ngIf="firstName.errors && firstName.touched">
-                  {{ firstName.errors.required && "Enter this field" }}
-                  {{ firstName.errors.pattern && "Invalid" }}
+                  <div *ngIf="firstName.errors.required">Enter this field</div>
+                  <div *ngIf="firstName.errors.minlength">Should have atlest {{firstName.errors.minlength.requiredLength}} characters</div>
+                  <div *ngIf="firstName.errors.pattern">Invalid</div>
                 </div>
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Lastname</div>
               <div class="col-8">
-                <input type="text" name="lastName" [(ngModel)]="employee.lastName"  [disabled]="action==='VIEW'" #lastName="ngModel"
+                <input type="text" name="lastName" [(ngModel)]="employee.lastName" [disabled]="action==='VIEW'" #lastName="ngModel"
                   [pattern]="'^[a-zA-Z ]*$'">
                 <div class="error" *ngIf="lastName.errors && lastName.touched">
-                  {{ lastName.errors.pattern && "Invalid" }}
+                  <div *ngIf="lastName.errors.pattern">Invalid</div>
                 </div>
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Email</div>
               <div class="col-8">
-                <input type="text" name="email" [(ngModel)]="employee.email"  [disabled]="action==='VIEW'" #email="ngModel"
+                <input type="text" name="email" [(ngModel)]="employee.email" [disabled]="action==='VIEW'" #email="ngModel"
                   [required]="!employee.phone" [pattern]="'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.+-]+\.[a-zA-Z0-9]$'">
                 <div class="error" *ngIf="email.errors && email.touched">
-                  {{ email.errors.required && "Enter this field" }}
-                  {{ email.errors.pattern && "Invalid" }}
+                  <div *ngIf="email.errors.required">Enter this field</div>
+                  <div *ngIf="email.errors.pattern">Invalid</div>
                 </div>
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Phone</div>
               <div class="col-8">
-                <input type="text" name="phone" [(ngModel)]="employee.phone"  [disabled]="action==='VIEW'" #phone="ngModel"
+                <input type="text" name="phone" [(ngModel)]="employee.phone" [disabled]="action==='VIEW'" #phone="ngModel"
                   [required]="!employee.email" [pattern]="'^[0-9 ]*$'">
                 <div class="error" *ngIf="phone.errors && phone.touched">
-                  {{ phone.errors.required && "Enter this field" }}
-                  {{ phone.errors.pattern && "Invalid" }}
+                  <div *ngIf="phone.errors.required">Enter this field</div>
+                  <div *ngIf="phone.errors.pattern">Invalid</div>
                 </div>
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Address</div>
               <div class="col-8">
-                <input type="text" name="address" [(ngModel)]="employee.address"  [disabled]="action==='VIEW'">
+                <input type="text" name="address" [(ngModel)]="employee.address" [disabled]="action==='VIEW'">
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Date of Birth</div>
               <div class="col-8">
-                <input type="text" name="dob" [(ngModel)]="employee.dob"  [disabled]="action==='VIEW'">
+                <input type="text" name="dob" [(ngModel)]="employee.dob" [disabled]="action==='VIEW'">
               </div>
             </div>
             <div class="row p-2">
               <div class="col-4">Designation</div>
               <div class="col-8">
-                <input type="text" name="designation" [(ngModel)]="employee.designation"  [disabled]="action==='VIEW'">
+                <input type="text" name="designation" [(ngModel)]="employee.designation" [disabled]="action==='VIEW'">
               </div>
             </div>
             <div class="row p-2">
@@ -89,7 +90,6 @@
             </div>
           </form>
         </div>
-          
         
         <!-- Modal footer -->
         <div class="modal-footer">
