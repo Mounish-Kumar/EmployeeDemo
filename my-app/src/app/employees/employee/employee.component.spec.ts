@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EmployeeComponent } from './employee.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpService } from 'src/app/core/http.service';
 import { from, throwError } from 'rxjs';
 import MessageType from 'src/app/core/message-type.enum';
@@ -14,8 +14,7 @@ describe('EmployeeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule, FormsModule, ReactiveFormsModule ],
-      declarations: [ EmployeeComponent ],
-      providers: [ AppService, HttpService, FormBuilder ]
+      declarations: [ EmployeeComponent ]
     })
     .compileComponents();
   }));

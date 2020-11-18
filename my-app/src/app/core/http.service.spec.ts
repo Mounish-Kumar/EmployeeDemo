@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { HttpService } from './http.service';
-import { from, throwError } from 'rxjs';
+import { from } from 'rxjs';
 import HttpMethod from './http-method.enum';
 import HttpRequest from './http-request';
 
@@ -11,8 +11,7 @@ describe('HttpService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ HttpClient ]
+      imports: [ HttpClientTestingModule ]
     });
     service = TestBed.inject(HttpService);
   });

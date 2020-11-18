@@ -14,8 +14,7 @@ describe('EmployeesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
-      declarations: [ EmployeesComponent ],
-      providers: [ HttpService ]
+      declarations: [ EmployeesComponent ]
     })
     .compileComponents();
   }));
