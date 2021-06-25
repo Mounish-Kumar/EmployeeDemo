@@ -1,8 +1,12 @@
 package com.example.EmployeeDemo.controllers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.EmployeeDemo.common.ResponseEntityBuilder;
+import com.example.EmployeeDemo.common.TrackExecutionTime;
 import com.example.EmployeeDemo.models.Employee;
 import com.example.EmployeeDemo.models.EmployeeListResponse;
 import com.example.EmployeeDemo.repositories.EmployeeRepository;
@@ -29,21 +33,55 @@ public class EmployeeController {
 	EmployeeRepository employeeRepository;
 	
 	@PostMapping
-	@ResponseBody ResponseEntity<Object> saveEmployee(@RequestBody final Employee employee) {
-		employeeRepository.save(employee);
-		return ResponseEntityBuilder.buildSuccessResponse("Saved Successfully!!!");
+	@TrackExecutionTime
+	ResponseEntity<Object> saveEmployee(@RequestBody final Employee employee) {
+		Employee savedEmployee = employeeRepository.save(employee);
+		
+		Link viewLink = linkTo(methodOn(this.getClass())
+						.getEmployeeById(savedEmployee.getId()))
+						.withRel("view");
+		
+		Link updateLink = linkTo(methodOn(this.getClass())
+							.updateEmployee(savedEmployee))
+							.withRel("update");
+		
+		Link deleteLink = linkTo(methodOn(this.getClass())
+							.deleteEmployee(savedEmployee.getId()))
+							.withRel("delete");
+		
+		return ResponseEntityBuilder.buildSuccessResponse("Saved Successfully!!!", viewLink, updateLink, deleteLink);
 	}
 	
 	@GetMapping
-	@ResponseBody ResponseEntity<Object> getEmployee() {
+	@TrackExecutionTime
+	ResponseEntity<Object> getEmployee() {
 		List<Employee> employeeList = employeeRepository.findAll();
+		
+		for(Employee employee : employeeList) {
+			Link viewLink = linkTo(methodOn(this.getClass())
+					.getEmployeeById(employee.getId()))
+					.withRel("view");
+
+			Link deleteLink = linkTo(methodOn(this.getClass())
+					.deleteEmployee(employee.getId()))
+					.withRel("delete");
+			
+			employee.add(viewLink, deleteLink);
+		}
+		
 		EmployeeListResponse employeeListResponse = new EmployeeListResponse();
 		employeeListResponse.setEmployeeList(employeeList);
 		return ResponseEntityBuilder.buildSuccessResponse(employeeListResponse);
 	}
 	
+	@GetMapping("/{id}")
+	ResponseEntity<Object> getEmployeeById(@PathVariable final Long id) {
+		Employee employee = employeeRepository.findById(id).orElse(null);
+		return ResponseEntityBuilder.buildSuccessResponse(employee);
+	}
+	
 	@PutMapping
-	@ResponseBody ResponseEntity<Object> updateEmployee(@RequestBody final Employee employee) {
+	ResponseEntity<Object> updateEmployee(@RequestBody final Employee employee) {
 		ResponseEntity<Object> responseEntity = null;
 		final Long id = employee != null ? employee.getId() : null; 
 		if(employeeRepository.existsById(id)) {
@@ -56,7 +94,7 @@ public class EmployeeController {
 	}
 	
 	@DeleteMapping("/{id}")
-	@ResponseBody ResponseEntity<Object> deleteEmployee(@PathVariable final Long id) {
+	ResponseEntity<Object> deleteEmployee(@PathVariable final Long id) {
 		ResponseEntity<Object> responseEntity = null;
 		if(employeeRepository.existsById(id)) {
 			employeeRepository.deleteById(id);

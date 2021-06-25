@@ -7,9 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.RepresentationModel;
+
 @Entity(name = "Employee")
 @Table(name = "EMPLOYEE")
-public class Employee {
+public class Employee extends RepresentationModel<Employee> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
